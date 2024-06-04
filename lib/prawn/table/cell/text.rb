@@ -137,7 +137,10 @@ module Prawn
           if text.empty?
             0
           else
-            text.lines.collect{|line|@pdf.width_of(line, @text_options)}.max
+            options = @text_options.reject { |k| k == :style }
+            with_font do
+              text.lines.collect { |line| @pdf.width_of(line, options) }.max
+            end
           end
         end
 
