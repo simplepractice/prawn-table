@@ -169,7 +169,9 @@ module Prawn
           content = options[:content]
         end
 
-        content = content.to_s if stringify_content?(content)
+        if stringify_content?(content)
+          content = content.respond_to?(:to_fs) ? content.to_fs : content.to_s
+        end
         options[:content] = content
 
         case content
